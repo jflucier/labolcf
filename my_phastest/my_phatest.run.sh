@@ -1,6 +1,6 @@
 #!/bin/bash
 
-module load gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0
+module load gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0 prodigal/2.6.3
 
 export FA_IN="/home/def-labolcf/programs/test_my_phastest/ERR017368assembly.contigs.fasta"
 export job_id="ERR017368assembly"
@@ -108,9 +108,9 @@ cp $blast_v_dir/${pepfile}_blast_out $PWD/ncbi.out
 echo "find tRNA sequences using tRNAscan..."
 tRNAscan-SE -B -o tRNAscan.out $job_id.fna --thread $threads
 echo "find tRNA sequences using aragorn..."
-$scripts_dir/../sub_programs/aragorn -m -o tmRNA_aragorn.out $job_id.fna
+aragorn -m -o tmRNA_aragorn.out $job_id.fna
 echo "find rRNA sequences using barrnap..."
-$scripts_dir/../sub_programs/barrnap/barrnap --quiet --outseq rRNA_barrnap.out $job_id.fna
+barrnap --quiet --outseq rRNA_barrnap.out $job_id.fna
 echo "extract rRNA from results..."
 perl $scripts_dir/extract_RNA.pl $job_id extract_RNA_result.txt.tmp $flag
 echo "running make_RNA_png_input"

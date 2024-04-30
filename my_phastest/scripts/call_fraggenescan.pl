@@ -93,9 +93,7 @@ print "change to $dir\n";
 # node is added to the cluster that does not have the needed database files on it.
 my $node_list = `perl $scripts_dir/map_node.pl 0`;
 my @lines = split("\n", $node_list);
-my $node_set = join '|', @lines;
-my $sub_programs_dir = "$ENV{PHASTEST_HOME}/sub_programs";
-my $fraggenescan_exec = "$sub_programs_dir/FragGeneScan1.20/run_FragGeneScan.pl";
+my $fraggenescan_exec = "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/fraggenescan/1.31/bin/run_FragGeneScan.pl";
 print "running $cm\n";
 system("perl $fraggenescan_exec  -genome=$fna_file_basename\_fgs_out   -out=$fna_file_basename\_fgs_out -complete=0 -train=complete")==0 or print "died $!";
 
