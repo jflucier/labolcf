@@ -11,6 +11,8 @@
 # Prodigal outputs .gff file.
 # This code reads .gff and deposits output in .predict file.
 
+use strict;
+use warnings;
 my $num = $ARGV[0];
 
 # Prepare output.

@@ -597,16 +597,6 @@ sub Set_defaults {
 	$temp_dir = "/tmp";
     }
 
-    # If block added to remove temporary files that may have been left around if the
-    # previous tRNAscan run failed without completing. If these files are not deleted,
-    # tRNAscan will prompt the user whether the files should be rewritten, and the
-    # PHASTER script will write the prompt to its log file repeatedly until the entire
-    # hard disk is full.
-    # Added by Jack, Apr 7, 2016
-    if (-e "$temp_dir/tscan$$.fpass"){
-         system("rm $temp_dir/tscan$$*");
-    }
-
     $SIG{'TERM'} = 'Error_Handler';
     $SIG{'QUIT'} = 'Error_Handler';
     $SIG{'INT'} = 'Error_Handler';
@@ -654,9 +644,9 @@ sub Set_file_paths {
     $Pselc_cm_file = "PSELC.cm";
     $Eselc_cm_file = "ESELC.cm";
 
-    $lib_dir = "/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/sub_programs/tRNAscan-SE-1.23/lib/tRNAscan-SE/";
+    $lib_dir = "/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/lib/tRNAscan-SE/";
 
-    $bindir ="/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/sub_programs/tRNAscan-SE-1.23/bin/";            # modified by 'make'
+    $bindir ="/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/bin/";            # modified by 'make'
     $covels_bin = "covels-SE";
 
     $coves_bin = "coves-SE";
@@ -1448,8 +1438,8 @@ sub Read_transl_table {
 	if (-r $gc_file) {
 	    $gc_file_path = $gc_file;
 	}
-	elsif (-r "/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/sub_programs/tRNAscan-SE-1.23/lib/tRNAscan-SE/".$gc_file) {
-	    $gc_file_path = "/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/sub_programs/tRNAscan-SE-1.23/lib/tRNAscan-SE/".$gc_file; 
+	elsif (-r "/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/lib/tRNAscan-SE/".$gc_file) {
+	    $gc_file_path = "/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/lib/tRNAscan-SE/".$gc_file; 
 	}
 	else {
 	    die "FATAL: Could not find $gc_file translation codon file\n\n";

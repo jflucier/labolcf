@@ -1,8 +1,9 @@
 #!/bin/bash
 
+export FA_IN="/home/def-labolcf/programs/test_my_phastest/ERR017368assembly.contigs.fasta"
 export job_id="ERR017368assembly"
 
-export PHASTEST_HOME=/storage/Documents/service/externe/lcfortier/programs/labolcf/my_phastest
+export PHASTEST_HOME=/home/def-labolcf/programs/labolcf/my_phastest
 export jobs_dir="$PHASTEST_HOME/JOBS";
 export scripts_dir="$PHASTEST_HOME/scripts";  # dir of executables.
 export database_dir="$PHASTEST_HOME/DB";
@@ -19,7 +20,7 @@ export flag="-s"
 ## Blast options
 export use_split_db_vir=0; # do not split up the viral DB
 export target_query_pieces_vir=208;
-export cores_per_blast_job_vir=1;
+export cores_per_blast_job_vir=12;
 export virus_database="prophage_virus.db"; # virus db name
 export virus_header_database="prophage_virus_header_lines.db"
 export virus_database_path="$database_dir/$virus_database"
@@ -27,14 +28,10 @@ export virus_header_database_path="$database_dir/$virus_header_database"
 export bac_database="bacteria_all_select.db"
 export bac_database_path="$database_dir/bacteria_all_select.db"
 
-rm -r ${PHASTEST_HOME}/JOBS/$job_id
-mkdir -p ${PHASTEST_HOME}/JOBS/$job_id
-cp /storage/Documents/service/externe/lcfortier/programs/phastest/ERR017368assembly.contigs.fasta \
-${PHASTEST_HOME}/JOBS/$job_id/$job_id.fna
-
-# my version
-
+rm -fr ${PHASTEST_HOME}/JOBS/$job_id
 mkdir -p $jobs_dir/$job_id
+cp $FA_IN ${PHASTEST_HOME}/JOBS/$job_id/$job_id.fna
+
 if [ -f "$jobs_dir/$job_id/$job_id.fasta" ]; then
     mv $jobs_dir/$job_id/$job_id.fasta $jobs_dir/$job_id/$job_id.fna
 fi
@@ -42,6 +39,8 @@ fi
 if [ "$flag" = "-c" ]; then
     mv $jobs_dir/$job_id/$job_id.fna $jobs_dir/$job_id/${job_id}_original.fna
 fi
+
+cd $jobs_dir/$job_id/
 
 echo "Handle fna file ...";
 if [ "$flag" = "-c" ]; then
@@ -71,7 +70,7 @@ if [ "$flag" = "-s" ]; then
     perl $scripts_dir/fix_fna_lines.pl ${job_id}.fna
 
     echo "Running Prodigal on ${job_id}.fna"
-    prodigal -i ${job_id}.fna -o ${job_id}.gff -f gff
+    $scripts_dir/../sub_programs/Prodigal-2.6.3/prodigal -i ${job_id}.fna -o ${job_id}.gff -f gff
     perl $scripts_dir/format_prodigal.pl ${job_id}
 fi
 
@@ -82,47 +81,26 @@ echo "Generating faa file..."
 perl $scripts_dir/change_to_protein_seq.pl ${job_id}.fna ${job_id}.predict ${job_id}.faa
 
 echo "Running phage search ..."
-$scripts_dir/phage_finder.sh $num $virus_database_path $virus_database_path $use_split_db_vir $target_query_pieces_vir $cores_per_blast_job_vir
-
 echo "Performing BLAST search on virus db."
-if [[ -s $PWD/$job_id.pep ]] # check if .pep file is present
-then
-    pepfile="$job_id.pep"
-elif [[ -s $PWD/$job_id.faa ]]
-then
-    pepfile="$job_id.faa"
-else
-   echo "Could not file $job_id.pep or $job_id.faa.  Please check to make sure the file is present and contains data"
-   exit 1
-fi
-
-if [[ -s $PWD/phage_finder_info.txt ]] # check for phage_finder info file and if it has contents
-then
-    infofile="phage_finder_info.txt"
-elif [[ -s $PWD/$job_id.ptt ]]
-then
-      infofile="$job_id.ptt"
-else
-  echo "Could not find a phage_finder_info.txt file or $job_id.ptt file.  Please make sure one of these files is present and contains data."
-  exit 1
-fi
+export pepfile="$job_id.faa"
+export infofile="$job_id.ptt"
 
 export blast_v_dir="$PHASTEST_HOME/JOBS/$job_id/tmp/blast_v"
 mkdir -p $blast_v_dir
 cp $PWD/$pepfile $blast_v_dir
 
 #cd $blast_v_dir
-export blast_out_fmt = "6 qseqid stitle pident length mismatch gapopen qstart qend sstart send evalue bitscore"; # tabular
+export blast_out_fmt="6 qseqid stitle pident length mismatch gapopen qstart qend sstart send evalue bitscore"; # tabular
 blastp \
 -db $virus_database_path \
--outfmt "$blast_out_fmt" \
+-outfmt "${blast_out_fmt}" \
 -evalue 0.0001 \
 -query $blast_v_dir/$pepfile \
--out ${pepfile}_out \
+-out $blast_v_dir/${pepfile}_out \
 -num_threads $cores_per_blast_job_vir \
 -seg no
 
-cat ${pepfile}_out > ${pepfile}_blast_out
+cat $blast_v_dir/${pepfile}_out > $blast_v_dir/${pepfile}_blast_out
 cp $blast_v_dir/${pepfile}_blast_out $PWD/ncbi.out
 
 echo "find tRNA sequences using tRNAscan..."

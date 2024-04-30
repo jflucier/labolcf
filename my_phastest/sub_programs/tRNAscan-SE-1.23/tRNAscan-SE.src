@@ -597,16 +597,6 @@ sub Set_defaults {
 	$temp_dir = "/tmp";
     }
 
-    # If block added to remove temporary files that may have been left around if the
-    # previous tRNAscan run failed without completing. If these files are not deleted,
-    # tRNAscan will prompt the user whether the files should be rewritten, and the
-    # PHASTER script will write the prompt to its log file repeatedly until the entire
-    # hard disk is full.
-    # Added by Jack, Apr 7, 2016
-    if (-e "$temp_dir/tscan$$.fpass"){
-         system("rm $temp_dir/tscan$$*");
-    }
-
     $SIG{'TERM'} = 'Error_Handler';
     $SIG{'QUIT'} = 'Error_Handler';
     $SIG{'INT'} = 'Error_Handler';

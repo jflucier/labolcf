@@ -3,6 +3,10 @@
 use warnings;
 use strict;
 
+# Rewrite fna file to limit sequence lines to 70 bases. If the sequence is not in multiple
+# lines, tRNAscan will get trouble. Will work with multi-FASTA file as well as single
+# FASTA sequence.
+
 my $filename = $ARGV[0];
 open(IN, "$filename");
 open(OUT, ">$filename.tmp");
