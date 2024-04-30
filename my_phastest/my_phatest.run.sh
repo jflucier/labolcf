@@ -1,5 +1,7 @@
 #!/bin/bash
 
+module load gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0
+
 export FA_IN="/home/def-labolcf/programs/test_my_phastest/ERR017368assembly.contigs.fasta"
 export job_id="ERR017368assembly"
 
@@ -20,7 +22,7 @@ export flag="-s"
 ## Blast options
 export use_split_db_vir=0; # do not split up the viral DB
 export target_query_pieces_vir=208;
-export cores_per_blast_job_vir=12;
+export threads=24;
 export virus_database="prophage_virus.db"; # virus db name
 export virus_header_database="prophage_virus_header_lines.db"
 export virus_database_path="$database_dir/$virus_database"
@@ -97,14 +99,14 @@ blastp \
 -evalue 0.0001 \
 -query $blast_v_dir/$pepfile \
 -out $blast_v_dir/${pepfile}_out \
--num_threads $cores_per_blast_job_vir \
+-num_threads $threads \
 -seg no
 
 cat $blast_v_dir/${pepfile}_out > $blast_v_dir/${pepfile}_blast_out
 cp $blast_v_dir/${pepfile}_blast_out $PWD/ncbi.out
 
 echo "find tRNA sequences using tRNAscan..."
-$scripts_dir/../sub_programs/tRNAscan-SE-1.23/bin/tRNAscan-SE -B -o tRNAscan.out $job_id.fna
+tRNAscan-SE -B -o tRNAscan.out $job_id.fna --thread $threads
 echo "find tRNA sequences using aragorn..."
 $scripts_dir/../sub_programs/aragorn -m -o tmRNA_aragorn.out $job_id.fna
 echo "find rRNA sequences using barrnap..."

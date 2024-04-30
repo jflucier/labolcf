@@ -1,2 +1,0 @@
-setenv PATH "$PATH"":""/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/sub_programs/tRNAscan-SE-1.23/bin"
-setenv MANPATH "$MANPATH"":""/storage/Documents/service/externe/lcfortier/programs/phastest/slurm-docker-cluster/phastest-app-docker/sub_programs/tRNAscan-SE-1.23/man"
