@@ -9,7 +9,7 @@
 #SBATCH --mem=40G
 
 echo "load env"
-module load gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0 prodigal/2.6.3 mugqic/ucsc/v387
+module load StdEnv/2023 gcc/12.3 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0 prodigal/2.6.3 mugqic/ucsc/v387
 echo "JOB_ID=${JOB_ID}"
 export FA_IN=$(ls "/nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/JOBS/${JOB_ID}/tmp/tRNAscan/*.fa" | awk "NR==$SLURM_ARRAY_TASK_ID")
 echo "fasta: $FA_IN"
