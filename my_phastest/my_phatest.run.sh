@@ -1,6 +1,6 @@
 #!/bin/bash
 
-module load gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0 prodigal/2.6.3
+module load gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0 prodigal/2.6.3 mugqic/ucsc/v387
 
 export FA_IN="/home/def-labolcf/programs/test_my_phastest/ERR017368assembly.contigs.fasta"
 export job_id="ERR017368assembly"
@@ -104,6 +104,15 @@ blastp \
 
 cat $blast_v_dir/${pepfile}_out > $blast_v_dir/${pepfile}_blast_out
 cp $blast_v_dir/${pepfile}_blast_out $PWD/ncbi.out
+
+# split tRNAscan input for faster processing
+export tRNAscan_dir="$PHASTEST_HOME/JOBS/$job_id/tmp/tRNAscan"
+mkdir -p $tRNAscan_dir/out
+mkdir -p $tRNAscan_dir/log
+faSplit sequence $job_id.fna 100 ${tRNAscan_dir}/$job_id
+
+# build submission scripts
+
 
 echo "find tRNA sequences using tRNAscan..."
 tRNAscan-SE -B -o tRNAscan.out $job_id.fna --thread $threads
