@@ -11,7 +11,7 @@
 echo "load env"
 #module load StdEnv/2020 gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0 prodigal/2.6.3 mugqic/ucsc/v387
 echo "JOB_ID=${JOB_ID}"
-export FA_IN=$(ls "/nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/JOBS/${JOB_ID}/tmp/tRNAscan/*.fa" | awk "NR==$SLURM_ARRAY_TASK_ID")
+export FA_IN=$(ls /nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/JOBS/${JOB_ID}/tmp/tRNAscan/*.fa | awk "NR==$SLURM_ARRAY_TASK_ID")
 echo "fasta: $FA_IN"
 b=$(basename $FA_IN)
 
@@ -19,7 +19,8 @@ cp $FA_IN $SLURM_TMPDIR/
 
 export OUT_DIR=/nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/JOBS/${JOB_ID}/tmp/tRNAscan/out
 echo "running tRNAscan-SE"
-/nfs3_ib/nfs-ip34/home/def-labolcf/programs/tRNAscan-SE/build/bin/tRNAscan-SE -B -o $SLURM_TMPDIR/$b.out $SLURM_TMPDIR/$b --thread 12
+export TMPDIR=$SLURM_TMPDIR
+/nfs3_ib/nfs-ip34/home/def-labolcf/programs/tRNAscan-SE/build/bin/tRNAscan-SE --progress -B -o $SLURM_TMPDIR/$b.out $SLURM_TMPDIR/$b --thread 12
 echo "copy result back to $OUT_DIR"
 cp $SLURM_TMPDIR/$b.out $OUT_DIR/
 echo "done!"
