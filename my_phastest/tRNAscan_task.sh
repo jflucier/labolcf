@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=tRNAscan
-#SBATCH -D /home/def-labolcf/programs/labolcf/my_phastest
-#SBATCH -o /home/def-labolcf/programs/labolcf/my_phastest/JOBS/ERR017368assembly/tmp/tRNAscan/log/slurm-%A_%a.out
+#SBATCH -D /nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest
+#SBATCH -o /nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/JOBS/ERR017368assembly/tmp/tRNAscan/log/slurm-%A_%a.out
 #SBATCH --account=def-labolcf
 #SBATCH --time=24:00:00
 #SBATCH --cpus-per-task=12

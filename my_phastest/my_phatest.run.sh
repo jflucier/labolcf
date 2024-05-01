@@ -111,7 +111,8 @@ mkdir -p $tRNAscan_dir/out
 mkdir -p $tRNAscan_dir/log
 faSplit sequence $job_id.fna 100 ${tRNAscan_dir}/$job_id
 
-# build submission scripts
+# submit and wait
+sbatch --array=1-98 /nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/tRNAscan_task.sh --export=JOB_ID="$job_id"
 
 
 echo "find tRNA sequences using tRNAscan..."
