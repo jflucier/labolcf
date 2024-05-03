@@ -1013,7 +1013,7 @@ sub printoutput {
 	my $header_line = $sequence->getDefinition();
 	$header_line .= " [asmbl_id: $asml].";
 	$header_line .= $sequence->getSize() . ", ";
-	$header_line .= sprintf("gc\%: %5.2f\%\n", 100.0*$sequence->getGlobalGC()/$sequence->getSize());
+	$header_line .= sprintf("gc%%: %5.2f%%\n", 100.0*$sequence->getGlobalGC()/$sequence->getSize());
 
 	print $header_line;
 	for (my $p = $prophagehead; $p ne ''; $p = $p->next(), $pindex++){
@@ -1022,10 +1022,10 @@ sub printoutput {
 		sprintf("gc%%: %5.2f%%", $p->calculateGC($sequence)), ".", $p->getCompleteness(),"\n";
 		$p->printPhagefinderResult();
 		print OUT99 "$pindex\t".$p->get_NC_PHAGE()."\n";
-		print W "PHAGE:$pindex:", $p->get5end(),":", $p->get3end(),"\n";
+		# print W "PHAGE:$pindex:", $p->get5end(),":", $p->get3end(),"\n";
 	}
-	print W "END:$asml:$case:", time - $ProgramStartTime,"\n";
-	close W;
+	# print W "END:$asml:$case:", time - $ProgramStartTime,"\n";
+	# close W;
 	close OUT99;
 
 	my $size = $sequence->{_size};
