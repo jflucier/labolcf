@@ -34,7 +34,8 @@ open (OUT, ">$output") or die "Cannot write $output";
 	my $region_end ='';
 	my $rx = "%-7s   %-12s  %-12s  %-4s  %-25s  %-70s   %-8s   %s\n";
 	my $header = "         from       to      strand      match      RNA_name     EVALUE     match_sequence\n";
-	$flag_1 = 0;
+	my $flag_1 = 0;
+	my $name;
 	while(<IN2>){
 		if ($_=~/^\s*$/){
 			next;
@@ -165,7 +166,7 @@ open (OUT, ">$output") or die "Cannot write $output";
 				}
 			}
 			check_hash(\%hash, $array[1], \$count);
-			$line = sprintf ($rx, "section", $start, $end, $strand."$hash{$array[1]}", $array[1], $protein_name, $array[2], $pro_seq );
+			my $line = sprintf ($rx, "section", $start, $end, $strand."$hash{$array[1]}", $array[1], $protein_name, $array[2], $pro_seq );
 			print OUT $line;
 				
 		}
@@ -178,14 +179,14 @@ open (OUT, ">$output") or die "Cannot write $output";
 	print OUT "\n\n";
 	#print Dumper(\%hash2);
 	foreach $k (sort {$a<=>$b} keys %hash1){
-		$m = $hash1{$k};
-		$n = $hash1{$k};
-		$t = "RNA_location";
-		$gc = 0.00;
+		my $m = $hash1{$k};
+		my $n = $hash1{$k};
+		my $t = "RNA_location";
+		my $gc = 0.00;
 		
 		$m =~s/.*\|//;
 		$n =~s/\|.*//;
-		$line = sprintf ("%-7s   %-3s  %-12s   %-12s   %-12s   %-12s\n", "region" , $k, $n, $m, $t, $gc);
+		my $line = sprintf ("%-7s   %-3s  %-12s   %-12s   %-12s   %-12s\n", "region" , $k, $n, $m, $t, $gc);
 		print OUT $line;
 	} 
 	close OUT;
@@ -215,7 +216,7 @@ sub get_hash2{
 sub get_pro_seq_from_hash{
 	my ($start, $end, $hash)= @_;
 	my $reg_ex = "$start..$end";
-	foreach $key(keys %$hash){
+	foreach my $key(keys %$hash){
 		if ($key eq $reg_ex){
 			return  $$hash{$key};
 		}
@@ -252,7 +253,7 @@ sub check_hash{
 	my $arr = shift;
 	my $count=shift;
 	my $found=0;
-	foreach $k (keys %{$hash}){
+	foreach my $k (keys %{$hash}){
 		if ($k eq $arr){
 			$found=1;
 			last;
