@@ -359,10 +359,10 @@ sub buildGenome{
 			# local gi, start, end, strand, product and type
 			my $tRNAgene = new Gene('', $start, $end, $strand, "tmRNA", 'tm');
 			my $existRNA =  &findGeneByStart($start);
-			if ($existRNA eq ''){
+			if (!defined($existRNA) or $existRNA eq ''){
 				$existRNA = &findCoverlapRNA($start, $end);
 			}
-			if ($existRNA eq ''){
+			if (!defined($existRNA) or $existRNA eq ''){
 				&insertGene($tRNAgene);
 			}
 		}
