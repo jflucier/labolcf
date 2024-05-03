@@ -50,7 +50,7 @@ my $seq_leng='';
 my $or_name ='';
 my $fna_file =`ls ../*.fna`;
 
-open(IN2, $fna_file);
+open(IN2, $fna_file) or die("Cannot open fna file: $!");
 while(<IN2>){
 	if ($_=~/>.*ref\|(.*?)\|\s*(.*)/){
 		$ref_name=$1;
@@ -70,7 +70,7 @@ my %GO_func_hash = ();
 my %GO_proc_hash = ();
 my %PID_hash = ();
 
-open(IN3, $ptt_file);
+open(IN3, $ptt_file) or die $!;
 while (<IN3>) {
 	if ($_ =~ /^\d+\.\.\d+\s+\S+\s+\S+\s+\S+\s+(\S+)\s+(\S+)\s+(\S+)\s+\S+\t+(NONE|.*?\;)\t+(NONE|.*?\;)\t+(NONE|.*?\;)\t+\"(.*)\"/) {
 		$ptt_hash{$2} = $3;
@@ -90,7 +90,7 @@ close IN3;
 my $protein_numbers = () = `cat $extract_file` =~ /\d+\.\.\d+/gi;
 my $regions_numbers = () = `cat $extract_file` =~ /#### region/gi;
 
-open(IN2, $extract_file) ;
+open(IN2, $extract_file) or die $!;
 open (OUT, "> json_input") or die "Cannot write json_input";
 	my $start;
 	my $end;
@@ -389,7 +389,7 @@ open (OUT, "> json_input") or die "Cannot write json_input";
 	my %hash2=();
 	my %gc_hash=();
 	my %name_hash=();
-	my $counter = 0;
+	$counter = 0;
 	get_hash2($true_file, \%hash2, \%gc_hash, \%name_hash); 
 	foreach my $k (sort {$a<=>$b} (keys %hash1)){
 
