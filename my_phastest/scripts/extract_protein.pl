@@ -377,7 +377,7 @@ sub new {
 package FAA;
 sub new {
 	my $class = shift;
-	$self={ position=>'',
+	my $self={ position=>'',
 		end5=>'',
 		end3=>'',
 		gi=>'',

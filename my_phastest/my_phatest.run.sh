@@ -170,7 +170,8 @@ else
   -use 5 >${NC}_phmedio.txt
 fi
 
-export anno_flag=0	# 0 if prophage region only, 1 for annotating all proteins in genome.
+# 0 if prophage region only, 1 for annotating all proteins in genome.
+export anno_flag=0
 perl $scripts_dir/non_hit_region_pro_to_faa.pl \
 $jobs_dir/$job_id/$job_id.faa \
 ${NC}_phmedio.txt \
