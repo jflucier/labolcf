@@ -122,8 +122,8 @@ while (<IN>){
 	elsif ($_=~/^.*?(\d+)\.\.(\d+)\)*\s\s\s\s+(.*?)\s\s\s\s+(.*?)\s\s\s\s+(.*?)/){
     #	complement(209159..210550)         germination protein YpeB [Clostridium clariflavum DSM 19732] gi|374294546|ref|YP_005044737.1|;  PP_00213     1e-174              LGIRDKLLDFKRRLSDRKMYSVVIVLIAAVAAWGIYQYKRAADLRQELDNQYNRAFFEMVSYVNNVESLL
     #   complement(207943..209022)         PHAGE_Entero_EF62phi: N/A; PP_00212; phage(gi384519704)                              1e-06               VEKGGEKAGGLTRTDSGVLRPNVVDASILFSGIIILFVLTGYRVQSREFYSGILITEFVIMLLPALLFVA
-		my $g=new Gene();
-		$g->{start}=$1; $gi->{end}=$2; $gi->{protein_name}=$3; $gi->{evalue}=$4; $gi->{protein_seq}=$5;
+		my $gi=new Gene();
+		$gi->{start}=$1; $gi->{end}=$2; $gi->{protein_name}=$3; $gi->{evalue}=$4; $gi->{protein_seq}=$5;
 		if ($_=~/^complement/){
 			$gi->{strand}=-1;
 		}else{
@@ -165,7 +165,7 @@ while (<IN>){
 		}
 		
 		$r->{total_gene_number}++;
-		push @{$r->{genes}}, $g;
+		push @{$r->{genes}}, $gi;
 	}
 
 }
