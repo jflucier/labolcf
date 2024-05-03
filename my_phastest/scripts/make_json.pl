@@ -237,6 +237,7 @@ open (OUT, "> json_input") or die "Cannot write json_input";
 				}
 					
 				if($array[1]=~/hypothetical/i){
+					print STDERR $protein_name . "\n";
 					$protein_name =~s/;\s*([\w_]+[\d\.]+)\s*$//;
 					$protein_name =$1."; $protein_name";
 					$array[1] = 'Hypothetical_protein';
