@@ -274,6 +274,9 @@ open (OUT, "> json_input") or die "Cannot write json_input";
 
 			$array[2] = "null" if $array[2] eq "N/A";
 			my $PP_tag = $1 if $protein_name =~ /(PP_\d+)/;
+			use Data::Dump qw(dump);
+			print STDERR %ptt_hash . "\n";
+			print STDERR "PP_tag=$PP_tag\n";
 			my $loc_tag = $ptt_hash{$PP_tag};
 			my $prot = "";
 			my $seq_length = $end - $start + 1;
