@@ -564,6 +564,10 @@ sub calculate_weight {
 	foreach my $i (@seqs) {
 		print STDERR "$i\n";
 		$weight += $residue{$i};
+		if(!exists($residue{$i})) {
+			die();
+		}
+
 	}
 	my $result = $weight + (18.01);
 	return $result;
