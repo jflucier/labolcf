@@ -34,7 +34,7 @@ my @regions=();
 my $r='';
 my $header='';
 while(<IN>){
-	if ($_=~/region (\d+) is from (\d+) to (\d+) .*?gc%:\s*(.*?).(=[-\d\.]+=.*)/){
+	if ($_=~/region (\d+) is from (\d+) to (\d+) .*?gc%:\s*(.*?)\%.(=[-\d\.]+=.*)/){
       #Medium degenerate region 8 is from 4683605 to 4695074 and is 11470 bp in size, gc%:49.07%.=70=
 		 $r=new Region();
 		 $r->{num} =$1;		 
