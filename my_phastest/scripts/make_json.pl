@@ -229,7 +229,6 @@ open (OUT, "> json_input") or die "Cannot write json_input";
 			}else{
 				#967646..967792                     hypothetical protein BA_0430 [Bacillus anthracis str. Ames] gi|30260595|ref|NP_842972.1|;  BASYS_01049     9e-20               LKKILALLPILLVAGLFTFSADNQQTKDKQEASEPVVQRMMTDPGGGW
 				$protein_name = $array[1];
-				print STDERR $protein_name . "\n";
 				$class = 'bacterial';
 
 				if ($array[1] =~/; E-VALUE = (\S+);/){
@@ -563,6 +562,7 @@ sub calculate_weight {
 	my $weight = 0;
 
 	foreach my $i (@seqs) {
+		print STDERR "$i\n";
 		$weight += $residue{$i};
 	}
 	my $result = $weight + (18.01);
