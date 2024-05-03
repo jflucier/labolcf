@@ -238,9 +238,8 @@ open (OUT, "> json_input") or die "Cannot write json_input";
 				}
 					
 				if($array[1]=~/hypothetical/i){
-
 					$protein_name =~s/;\s*([\w_]+[\d\.]+)\s*$//;
-					$protein_name =$1."; $protein_name";
+					defined($1) ? $protein_name =$1."; $protein_name" : $protein_name ="; $protein_name";
 					$array[1] = 'Hypothetical_protein';
 					$hash{$array[1]} = 2;
 				}elsif ($array[1]=~/attR/ or $array[1]=~/attL/ ){
