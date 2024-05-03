@@ -1029,7 +1029,7 @@ sub printoutput {
 	close OUT99;
 
 	my $size = $sequence->{_size};
-	print sprintf ("There are %d regions between 10 and 18 Kb and summing 26486 bp of sequence ( 1.45\% of the genome)\n", $pindex-1);
+	print sprintf ("There are %d regions between 10 and 18 Kb and summing 26486 bp of sequence ( 1.45%% of the genome)\n", $pindex-1);
 }
 
 ##########  main program ###########
