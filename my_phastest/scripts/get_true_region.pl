@@ -178,12 +178,13 @@ foreach $r (@regions){
         }else{
         	$r->{phage_hypo_percentage} = 0;
         }
-	$r->{phage_hypo_percentage}.="%";
+
 	if ($p_flag ==0){#phage
 		$r->{calculated_score}+=10  if ($r->{phage_hypo_percentage} >=$phage_percentage_threshold/100);
 		$r->{calculated_score}+=10  if ($r->{protein_number} >=$min_pro_num);
 		$r->{calculated_score}+=10  if ($r->{region_length} >=$min_region_size);
 	}
+	$r->{phage_hypo_percentage}.="%";
 	$r->{calculated_score}=150  if($r->{calculated_score}>150);
 	$r->{choose_score} = ($r->{calculated_score}>$r->{score})? $r->{calculated_score}: $r->{score};
 	if (	$r->{choose_score} eq '' ){
