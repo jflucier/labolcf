@@ -195,7 +195,7 @@ cp true_defective_prophage.txt  $jobs_dir/$job_id/
 cp true_defective_prophage.txt  $jobs_dir/$job_id/summary.txt
 
 cp extract_result.txt $jobs_dir/$job_id/detail.txt
-perl $scripts_dir/make_json.pl extract_result.txt  true_defective_prophage.txt $job_id $flag
+perl $scripts_dir/make_json.pl extract_result.txt  true_defective_prophage.txt $job_id $flag ../$job_id.fna
 cp json_input json_input_regions $jobs_dir/$job_id/
 
 perl $scripts_dir/make_region_DNA.pl $job_id

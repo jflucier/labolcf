@@ -35,6 +35,7 @@ my $extract_file=$ARGV[0];
 my $true_file = $ARGV[1];
 my $job_id = $ARGV[2];
 my $flag = $ARGV[3];
+my $fna_file = $ARGV[4];
 my %contig_pos = ();
 
 if ($flag eq '-c' || -e "$ENV{PHASTEST_HOME}/JOBS/$job_id/$job_id\_contig_positions.txt") {
@@ -48,9 +49,9 @@ get_protein_sequence_position(\%hash3);
 my $ref_name ='';
 my $seq_leng='';
 my $or_name ='';
-my $fna_file =`ls ../*.fna`;
+# my $fna_file =`ls ../*.fna`;
 
-open(IN2, $fna_file) or die("Cannot open fna file: $!");
+open(IN2, $fna_file) or die("Cannot open fna file : $!");
 while(<IN2>){
 	if ($_=~/>.*ref\|(.*?)\|\s*(.*)/){
 		$ref_name=$1;
