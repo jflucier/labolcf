@@ -287,9 +287,9 @@ sub print_out{
 			$r->{most_common_phage_percentage}.="%";
 		}	
 		$r->{most_common_phage_name}= "\'\'" if ($r->{most_common_phage_name} eq '');
-		$region_positon = $r->{start}."-".$r->{end};
+		my $region_positon = $r->{start}."-".$r->{end};
 		$region_positon =~ s/\s+/,/g;
-		$line = sprintf("%-30s    %-10s     %-20s     %-25s     %-40s     %-20s     %-20s     %-20s    %-30s   %-30s   %-30s   %-30s   %-30s   %-30s   %-40s   %-30s   %-30s   %-30s\n", 
+		my $line = sprintf("%-30s    %-10s     %-20s     %-25s     %-40s     %-20s     %-20s     %-20s    %-30s   %-30s   %-30s   %-30s   %-30s   %-30s   %-40s   %-30s   %-30s   %-30s\n",
 		"", $r->{num},$r->{region_length}."Kb", $r->{completeness}."(".$r->{choose_score}.")", $r->{specific_keyword},  $region_positon, $r->{RNA_num}, $r->{protein_number}, 
 		$r->{phage_hit_protein_num},  $r->{hypothetic_protien_num}, $r->{phage_hypo_percentage},$r->{bacterial_protein_num}, $r->{att_show}, $r->{phage_species_num}, 
 		$r->{most_common_phage_name}, $r->{most_common_phage_num}, $r->{most_common_phage_percentage}, $r->{gc});
