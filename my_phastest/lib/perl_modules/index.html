@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD><TITLE>PHAST</TITLE>
+
+<META 
+content="PHAST" 
+name=Keywords>
+<META content="Jack Liang" name=Author>
+<META content="Microsoft FrontPage 4.0" name=GENERATOR>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37676169-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</HEAD>
+<BODY bgColor=#ffffff>
+<center>
+<font face="Arial">
+
+
+<CENTER><IMG src="image/phage.png" hight=125 width=500></CENTER>
+<!--H1 align=center>Re-referenced Protein Chemical Shift<br> Database (RefDB)</H1--><br>
+<center>
+	<table align="center"  border="0" cellpadding="0" cellspacing="0" id="navigation" bgcolor='orange'>
+        <tr width="100%" style="font-size:16;font-style:arial;">
+          <td class="navText" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.html"><b>Home</b></a>&nbsp;&nbsp;&nbsp;</td>
+          <td class="navText" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;<a href="documentation.html"  ><b>Documentation</b></a>&nbsp;&nbsp;&nbsp;</td>
+	<td class="navText" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;<a href="io.html"  ><b>Input</b></a>&nbsp;&nbsp;&nbsp;</td>
+	<td class="navText" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;<a href="io1.html"  ><b>Output</b></a>&nbsp;&nbsp;&nbsp;</td>
+	  <td class="navText" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;<a href="how_to_use.html"  ><b>Instructions</b></a>&nbsp;&nbsp;&nbsp;</td>
+	<td class="navText" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Download.html"><b>Databases</b></a>&nbsp;&nbsp;&nbsp;</td>
+          <td class="navText" align="center" nowrap="nowrap">&nbsp;&nbsp;&nbsp;<a href="contact.html"  ><b>Contact</b></a>&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        </table>	
+
+</center>
+<br>
+<table style="border:1px solid darkblue; width:900px; padding:15px; margin-left:auto;margin-right:auto">
+<tr><td>
+	<p align="justify">PHAST(<b>PHA</b>ge <b>S</b>earch <b>T</b>ool) 
+		 is a web server designed to rapidly and accurately
+		identify, annotate and graphically display prophage sequences within bacterial genomes
+		or plasmids. It accepts either raw DNA sequence data or partially annotated GenBank
+		formatted data and rapidly performs a number of database comparisons as well as
+		phage &ldquo;cornerstone&rdquo; feature identification steps to locate, annotate and display prophage
+		sequences and prophage features. Relative to other prophage identification tools, PHAST
+		is up to 40 times faster and up to 15% more sensitive. It is also able to process and
+		annotate both raw DNA sequence data and Genbank files, provide richly annotated
+		tables on prophage features and prophage &ldquo;quality&rdquo; and distinguish between intact and
+		incomplete prophage. PHAST also generates downloadable, high quality, interactive
+		graphics that display all identified prophage components in both circular and linear
+		genomic views.Furthermore, tests indicate that PHAST is as accurate or slightly
+		more accurate than all available phage finding tools, with sensitivity of 
+		85.4% and positive predictive value of 94.2%.
+	   </p>
+<P align="justify">
+Please cite the following: <a href="http://nar.oxfordjournals.org/content/early/2011/06/14/nar.gkr485.long"> You Zhou, Yongjie Liang, Karlene Lynch, Jonathan J. Dennis, David S. Wishart &ldquo;PHAST: A Fast Phage Search Tool&rdquo; Nucl. Acids Res. (2011) 39(suppl 2): W347-W352 [doi:10.1093/nar/gkr485][PMID:21672955] </a>
+</p>
+<P align="justify">
+<b><a href="news_and_update.html">News and Updates, Jun,30,2014 (<font color=red>especially for contig files</font>)</a></b><br><br>
+<!--font color=red>These days our server manchine is unstable for internet connection. Please use our another mirror of this server(Keep or bookmark this address <a href="http://botha1.cs.ualberta.ca/PHAST">http://botha1.cs.ualberta.ca/PHAST</a></font-->
+
+</p>
+
+<CENTER><IMG src="image/blueline.gif" width="100%" height="7"></p>
+<p align=left> <!--a href="tmp/browse.html">Previous result</a--> </p>
+
+<fieldset   style="background-color: #EEEEEE"><legend><b></b></legend>
+<br>
+<form name="myform" action="cgi-bin/phage.cgi"  method="POST" ENCTYPE="multipart/form-data">
+	<fieldset align="left" style="background-color: #D8D8D8">
+	<table  align="left">
+	<tr>
+		<td>Please input a <b>Genbank accession number</b> or a <b>GI number</b>:</td><td><input type="text" name="acc" length="30"  /></td><td>(For example, NC_000913 or 49175990. If need to check the database, click <a href="Download.html">here</a>.)</td>
+	</tr>
+	<tr>
+                <td>
+                        <INPUT TYPE="SUBMIT" NAME="B1" VALUE="Submit">
+                        <input name="Reset" type="reset" value="Reset" />
+                </td>
+        </tr>
+	</table>
+	</fieldset>
+	<br>
+	<table  align="left">
+	<td><b>or</b></td><td>&nbsp;</td>
+	</table>
+	<br><br>	
+	
+	<fieldset align="left" style="background-color: #D8D8D8"> 
+	<table  align="left" >
+	<tr>
+	 	<td>Select your <b>GenBank formatted file</b> : <input type="file" name="gbk"  length="30" />(<a href="example/NC_000907.gbk">Example</a>)</td>
+	</tr>
+	<tr>
+                <td>
+                        <INPUT TYPE="SUBMIT" NAME="B1" VALUE="Submit">
+                        <input name="Reset" type="reset" value="Reset" />
+                </td>
+        </tr>
+	</table>
+	</fieldset >
+	<br>	
+	<table  align="left">
+	<td><b>or</b></td><td>&nbsp;</td>
+	</table>
+	<br><br>
+
+	<fieldset align="left" style="background-color: #D8D8D8">   
+
+	<table  align="left">
+	<tr>
+	 	<td>Select your <b>nucleotide sequence file</b> (<b>FASTA format</b>) :</td><td><input type="file" name="file"  length="30" />(<a href="example/NC_000907.fna">Example</a>) </td>
+	</tr>
+	 <tr>
+                <td>&nbsp;</td><td><input type="checkbox" name="contig" />Check if your input file is a contigs file. The server will concatenate all the  sequences together.</td>
+        </tr>
+	 <tr>
+                <td><b>or</b></td><td>&nbsp;</td>
+        </tr>
+
+	<tr>
+	 	<td>Paste your <b>nucleotide sequence</b> here (<b>FASTA format</b>) :</td><td><TEXTAREA  NAME="fasta" COLS="60" ROWS="10"  style="font-size:12px;   font-family: courier;" onclick="document.myform.fasta.value='';"></TEXTAREA> </td>
+	</tr>
+	<tr>
+		<td>
+			<INPUT TYPE="SUBMIT" NAME="B1" VALUE="Submit">
+        		<input name="Reset" type="reset" value="Reset" />
+		</td>
+	</tr>
+	</table>
+	</fieldset >
+</FORM>
+
+
+</fieldset>
+
+&nbsp;
+<P>
+<IMG src="image/blueline.gif" width="100%" height="7"></CENTER>
+      <P align="center">Problems? Suggestions? Please contact 
+<A href=" http://feedback.wishartlab.com?site=PHAST"  onClick="_gaq.push(['_trackEvent', 'Feedback', 'onClick', 'start feedback']);">feedback</A> <!--or &nbsp; <A href="mailto:david.wishart@ualberta.ca">David Wishart</A-->
+<br>  
+    </p>&nbsp;</td>
+  </tr>
+  <tr><td><CENTER>
+  <!---  See   http://www.ualberta.ca/GEO/Counter.html  for details.  -->
+<p>You are visitor number
+  <img align=middle src="http://www.ualberta.ca/htbin/Geo-counter.gif?ualberta-reg-zhou_phast-1.gif&font:Medium-black"> since June 01, 2011
+</p>
+<p>You can see the 
+  <a href="http://www.ualberta.ca/htbin/Geo-counter.gif?ualberta-reg-zhou_phast-1.gif&20">
+   last 20 users</a></p>
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+<!------------------------------------------------------------------ -->
+</CENTER> </td></tr>
+  <tr><td>
+<CENTER><IMG src="image/logo.gif" ></CENTER>
+<center>
+</td></tr>
+</table>
+</center></font>
+<ADDRESS><BR></ADDRESS></BODY></HTML>
