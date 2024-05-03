@@ -178,7 +178,7 @@ open (OUT, ">$output") or die "Cannot write $output";
 	}
 	print OUT "\n\n";
 	#print Dumper(\%hash2);
-	foreach $k (sort {$a<=>$b} keys %hash1){
+	foreach my $k (sort {$a<=>$b} keys %hash1){
 		my $m = $hash1{$k};
 		my $n = $hash1{$k};
 		my $t = "RNA_location";
