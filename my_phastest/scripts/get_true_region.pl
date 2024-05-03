@@ -59,7 +59,7 @@ while(<IN>){
 			$r->{gc} = $p;
 		}
 		push @regions,$r;
-	}elsif ($_=~/^gi\|\d+\|ref\|\S+\|.*gc%:\s*([\d\.]+%)/){#header
+	}elsif ($_=~/^gi\|\d+\|ref\|\S+\|.*gc%:\s*([\d\.]+\%)/){#header
 		#gi|28197945|ref|NC_004556.1| Xylella fastidiosa Temecula1, complete genome[asmbl_id: NC_004556], 2519802, gc%: 51.21%
 		$tatol_gc_perc=$1;
 		$header=$_;
