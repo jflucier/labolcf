@@ -260,7 +260,7 @@ sub check_hash{
 		}
 	}
 	if ($found ==0){
-		$hash->{$arr[1]} = ++$$count;
+		$hash->{$arr} = ++$$count;
 	}
 }
 
