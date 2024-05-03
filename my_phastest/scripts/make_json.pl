@@ -229,6 +229,7 @@ open (OUT, "> json_input") or die "Cannot write json_input";
 			}else{
 				#967646..967792                     hypothetical protein BA_0430 [Bacillus anthracis str. Ames] gi|30260595|ref|NP_842972.1|;  BASYS_01049     9e-20               LKKILALLPILLVAGLFTFSADNQQTKDKQEASEPVVQRMMTDPGGGW
 				$protein_name = $array[1];
+				print STDERR $protein_name . "\n";
 				$class = 'bacterial';
 
 				if ($array[1] =~/; E-VALUE = (\S+);/){
@@ -237,7 +238,7 @@ open (OUT, "> json_input") or die "Cannot write json_input";
 				}
 					
 				if($array[1]=~/hypothetical/i){
-					print STDERR $protein_name . "\n";
+
 					$protein_name =~s/;\s*([\w_]+[\d\.]+)\s*$//;
 					$protein_name =$1."; $protein_name";
 					$array[1] = 'Hypothetical_protein';
