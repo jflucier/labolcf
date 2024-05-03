@@ -64,7 +64,7 @@ open (OUT, ">$output") or die "Cannot write $output";
 		}
 		if ($_=~/^\d+\.\.\d+/ or $_=~/^complement\(\d+\.\.\d+\)/){
 			
-			@array = split (/\s\s\s+/, $_);
+			my @array = split (/\s\s\s+/, $_);
 			if ($array[0]=~/complement\((\d+)\.\.(\d+)\)/){
 				$start = $1 ;
 				$end =$2;
