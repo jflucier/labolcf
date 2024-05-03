@@ -57,6 +57,7 @@ if (-e "tmRNA_aragorn.out"){
 	open(IN, "tmRNA_aragorn.out");
 	my $flag = 0;
 	my $key ='';
+	my $seq1 = '';
 	while(<IN>){
 		chomp($_);
 		
@@ -73,7 +74,7 @@ if (-e "tmRNA_aragorn.out"){
 		}
 		if ($_=~/1   .   10    .   20    .   30    .   40    .   50/){
 			$flag = 1;
-			my $seq1 = '';
+			$seq1 = '';
 			
 			next;
 		}
@@ -99,6 +100,7 @@ if (-e "tmRNA_aragorn.out"){
 if ($input_flag eq "-g"){
 	open(IN, "$num.gbk");
 	my $flag = 0;
+	my $key;
 	while(<IN>){
 		if ($_=~/^\s*rRNA\s+complement\((\d+)\.\.(\d+)\)/){
 			$hash{$1} = "complement($1..$2),rRNA";
@@ -133,14 +135,15 @@ else {
 
 for (my $i = 1; $i <= ceil(length($seq)/1000000); $i++){
 	my $flag = 1;
-	foreach $k (sort keys %hash){
+	my $seq2 = '';
+	foreach my $k (sort keys %hash){
 		if ($k <= $i *1000000 && $k >= ($i-1)*1000000+1){
 			if ($flag ==1){
 				print OUT "\n#### region $i ####\n";
 				$flag = 0;
 			}
 			my @a = split(",", $hash{$k});
-			my $seq2 = '';
+			$seq2 = '';
 			my $location = $a[0];
 			if ($a[1] eq "tRNA"){
 				$seq2 = get_seq(\$seq, $a[0]);

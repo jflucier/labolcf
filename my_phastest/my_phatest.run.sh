@@ -2,8 +2,8 @@
 
 module load gcc/9.3.0 trnascan-se/2.0.12 fraggenescan/1.31 aragorn/1.2.41 barrnap/0.9 blast+/2.13.0 prodigal/2.6.3 mugqic/ucsc/v387
 
-export FA_IN="/home/def-labolcf/programs/test_my_phastest/ERR017368assembly.contigs.fasta"
-export job_id="ERR017368assembly"
+export FA_IN="/home/def-labolcf/programs/test_my_phastest/62_CNEO.1-Contigs.fasta"
+export job_id="62_CNEO.1"
 
 export PHASTEST_HOME=/home/def-labolcf/programs/labolcf/my_phastest
 export jobs_dir="$PHASTEST_HOME/JOBS";
@@ -25,10 +25,12 @@ export target_query_pieces_vir=208;
 export threads=24;
 export virus_database="prophage_virus.db"; # virus db name
 export virus_header_database="prophage_virus_header_lines.db"
-export virus_database_path="$database_dir/$virus_database"
-export virus_header_database_path="$database_dir/$virus_header_database"
-export bac_database="bacteria_all_select.db"
-export bac_database_path="$database_dir/bacteria_all_select.db"
+export virus_database_path="${database_dir}/${virus_database}"
+export virus_header_database_path="${database_dir}/${virus_header_database}"
+export bac_database="swissprot.db"
+export bac_header_database="swissprot_header.db";
+export bac_database_path="${database_dir}/${bac_database}"
+export bac_header_database="${database_dir}/${bac_header_database}"
 
 rm -fr ${PHASTEST_HOME}/JOBS/$job_id
 mkdir -p $jobs_dir/$job_id
@@ -72,7 +74,7 @@ if [ "$flag" = "-s" ]; then
     perl $scripts_dir/fix_fna_lines.pl ${job_id}.fna
 
     echo "Running Prodigal on ${job_id}.fna"
-    $scripts_dir/../sub_programs/Prodigal-2.6.3/prodigal -i ${job_id}.fna -o ${job_id}.gff -f gff
+    prodigal -i ${job_id}.fna -o ${job_id}.gff -f gff
     perl $scripts_dir/format_prodigal.pl ${job_id}
 fi
 
@@ -105,24 +107,37 @@ blastp \
 cat $blast_v_dir/${pepfile}_out > $blast_v_dir/${pepfile}_blast_out
 cp $blast_v_dir/${pepfile}_blast_out $PWD/ncbi.out
 
+### not sure this is needed
 # split tRNAscan input for faster processing
 export tRNAscan_dir="$PHASTEST_HOME/JOBS/$job_id/tmp/tRNAscan"
 mkdir -p $tRNAscan_dir/out
-mkdir -p $tRNAscan_dir/log
-faSplit sequence $job_id.fna 100 ${tRNAscan_dir}/$job_id
+mkdir -p $PHASTEST_HOME/JOBS/log
+faSplit sequence $job_id.fna 200 "${tRNAscan_dir}/$job_id"
 
 # submit and wait
-rm tmp/tRNAscan/log/*
-sbatch --array=1 --export=JOB_ID="$job_id" /nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/tRNAscan_task.sh
-sbatch --array=1-98 --export=JOB_ID="$job_id" /nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/tRNAscan_task.sh
+#export tmp_jobid="62_CNEO"
+rm $PHASTEST_HOME/JOBS/log/*
+sbatch --array=1-196 --export=JOB_ID="$job_id" /nfs3_ib/nfs-ip34/home/def-labolcf/programs/labolcf/my_phastest/tRNAscan_task.sh
 
+#grep -Le 'done!' tmp/tRNAscan/log/*
+#wc -l tmp/tRNAscan/ERR017368assembly121.fa
+#wc -l tmp/tRNAscan/ERR017368assembly142.fa
+#wc -l tmp/tRNAscan/ERR017368assembly148.fa
+#wc -l tmp/tRNAscan/ERR017368assembly186.fa
+#
+#grep -e '>' tmp/tRNAscan/ERR017368assembly121.fa | wc -l
+#grep -e '>' tmp/tRNAscan/ERR017368assembly142.fa | wc -l
+#grep -e '>' tmp/tRNAscan/ERR017368assembly148.fa | wc -l
+#grep -e '>' tmp/tRNAscan/ERR017368assembly186.fa | wc -l
 
-echo "find tRNA sequences using tRNAscan..."
-tRNAscan-SE -B -o tRNAscan.out $job_id.fna --thread $threads
+### not sure this is needed
+#echo "find tRNA sequences using tRNAscan..."
+#tRNAscan-SE -B -o tRNAscan.out $job_id.fna --thread $threads
+
 echo "find tRNA sequences using aragorn..."
-aragorn -m -o tmRNA_aragorn.out $job_id.fna
+aragorn -v -m -o tmRNA_aragorn.out $job_id.fna
 echo "find rRNA sequences using barrnap..."
-barrnap --quiet --outseq rRNA_barrnap.out $job_id.fna
+barrnap --threads $threads --outseq rRNA_barrnap.out $job_id.fna
 echo "extract rRNA from results..."
 perl $scripts_dir/extract_RNA.pl $job_id extract_RNA_result.txt.tmp $flag
 echo "running make_RNA_png_input"
