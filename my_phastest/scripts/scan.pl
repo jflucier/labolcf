@@ -1001,13 +1001,13 @@ sub isPhageGene {
 sub printoutput {
 	# open (W, ">>$log") or die "cannot write to log file $log";
 	my $case = $fna; $case = basename($fna); $case =~s/\.fna//;
-	print W "Case: $case\n";
+	# print W "Case: $case\n";
 	# header:
 	my $asml = "NC_000000";
 	if ($faa =~m/(NC_\d+)/){
 		$asml = $1;
 	}
-	print W "START:$asml:$case\n";
+	# print W "START:$asml:$case\n";
 	my $pindex = 1;
 	open(OUT99, ">region_PHAGEs.txt") or die "Cannot write region_PHAGEs.txt";
 	my $header_line = $sequence->getDefinition();
@@ -1019,7 +1019,7 @@ sub printoutput {
 	for (my $p = $prophagehead; $p ne ''; $p = $p->next(), $pindex++){
 		print "Medium degenerate region $pindex is from ", $p->get5end(),
 		" to ", $p->get3end()," and is ", $p->getSize()," bp in size, ",
-		sprintf("gc\%: %5.2f\%", $p->calculateGC($sequence)), ".", $p->getCompleteness(),"\n";
+		sprintf("gc%%: %5.2f%%", $p->calculateGC($sequence)), ".", $p->getCompleteness(),"\n";
 		$p->printPhagefinderResult();
 		print OUT99 "$pindex\t".$p->get_NC_PHAGE()."\n";
 		print W "PHAGE:$pindex:", $p->get5end(),":", $p->get3end(),"\n";
