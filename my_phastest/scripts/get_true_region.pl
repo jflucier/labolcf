@@ -246,7 +246,7 @@ sub print_header{
 	my $line = sprintf("%-30s    %-10s     %-20s     %-25s     %-40s     %-20s     %-20s     %-20s    %-30s   %-30s   %-30s   %-30s   %-30s   %-30s   %-40s   %-30s   %-30s   %-30s\n", "", "REGION", "REGION_LENGTH", "COMPLETENESS(score)","SPECIFIC_KEYWORD",  "REGION_POSITION","RNA_NUM", "TOTAL_PROTEIN_NUM", "PHAGE_HIT_PROTEIN_NUM",   "HYPOTHETICAL_PROTEIN_NUM","PHAGE+HYPO_PROTEIN_PERCENTAGE", "BACTERIAL_PROTEIN_NUM", "ATT_SITE_SHOWUP", "PHAGE_SPECIES_NUM", "MOST_COMMON_PHAGE_NAME(hit_genes_count)",  "FIRST_MOST_COMMON_PHAGE_NUM", "FIRST_MOST_COMMON_PHAGE_PERCENTAGE", "GC_PERCENTAGE");
 	print $out $line;
 	$line='';
-	for($i=0; $i<550; $i++){
+	for(my $i=0; $i<550; $i++){
 		$line .='-';
 	}
 	$line = sprintf("%-28s     %s\n", "", $line);
