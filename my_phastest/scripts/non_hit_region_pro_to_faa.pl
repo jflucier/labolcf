@@ -40,6 +40,9 @@ while (<IN>) {
 }
 close IN;
 
+use Data::Dump qw(dump);
+print STDERR dump(@bact) . "\n";
+
 if ($anno_flag == 0 && @bact == 0) {
 	print "No bacterial protein found in the prophage region. Exiting.\n";
 	system("touch $ARGV[2]");
