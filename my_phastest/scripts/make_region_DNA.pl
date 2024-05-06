@@ -23,7 +23,7 @@ sub make_region_DNA{
 		push @pos, $tmp[4];
 	}
 	if (@pos !=0){
-		open(OUT, ">region_DNA.txt") or die "Cannot write region_DNA.txt";
+		open(OUT, ">phage_regions.fna") or die "Cannot write phage_regions.fna";
 		for(my $i=0; $i <=$#pos; $i++){
 			my ($start, $end)= $pos[$i]=~/(\d+)-(\d+)/;
 			print OUT ">".($i+1)."\t $pos[$i]\n";

@@ -197,6 +197,36 @@ cp true_defective_prophage.txt  $jobs_dir/$job_id/summary.txt
 cp extract_result.txt $jobs_dir/$job_id/detail.txt
 
 perl $scripts_dir/make_json.pl extract_result.txt  true_defective_prophage.txt $job_id $flag ../$job_id.fna
-cp json_input json_input_regions $jobs_dir/$job_id/
+cp json_input_regions $jobs_dir/$job_id/predicted_phage_regions.json
+cp json_input $jobs_dir/$job_id/predicted_genes.json
 
+cd $jobs_dir/$job_id
 perl $scripts_dir/make_region_DNA.pl $jobs_dir $job_id
+
+cd ${jobs_dir}/${job_id}
+rm -rf \
+${NC}_dir \
+extract_RNA_result.tmp \
+extract_RNA_result.txt.tmp \
+ncbi.out \
+tmRNA_aragorn.out \
+tRNAscan* \
+true_defective_prophage.txt \
+$job_id.faa \
+$job_id.faa.non_hit_pro_region \
+${NC}_phmedio.txt_bk \
+tmp \
+$job_id.predict \
+$job_id.ptt \
+$job_id.fna.fai \
+ncbi.out \
+rRNA_barrnap.out
+
+
+#ls *predict
+#ls *process
+#ls *ptt
+#ls *gbk
+#ls *.txt.old
+#ls image.png
+#ls *f
