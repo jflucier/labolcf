@@ -77,8 +77,9 @@ else {
 		$gi = $1 if $seq->id =~ /^gi\|(\d+)\|/;	# Local GI number from .faa file.
 		print STDERR "curr gi=$gi\n";
 		foreach my $hit (@bact) {
-			print STDERR "hit=$hit\n";
+			# print STDERR "hit=$hit\n";
 			if ($gi eq $hit) {
+				print STDERR "##### hit=$hit == $gi ####\n";
 				$flag = 1;		# Local GI found within the prophage region, add to non_hit_pro_region.
 				last;
 			}
