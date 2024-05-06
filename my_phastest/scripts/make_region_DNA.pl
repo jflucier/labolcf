@@ -3,11 +3,12 @@
 use strict;
 use warnings;
 
-my $num = $ARGV[0];
-make_region_DNA($num);
+my $jobs_dir = $ARGV[0];
+my $num = $ARGV[1];
+make_region_DNA($jobs_dir,$num);
 
 sub make_region_DNA{
-	my $num=shift;
+	my($jobs_dir,$num)=@_;
 	my $cur_dir = getcwd;
 	chdir "$jobs_dir/$num";
 	my $DNA_seq= `grep -v '>' $num.fna`;
