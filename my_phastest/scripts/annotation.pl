@@ -42,6 +42,8 @@ my $ptt_file = $ARGV[7];
 my $flag = $ARGV[8];
 my $anno_flag = $ARGV[9]; # 0 if only for prophage region, 1 for full annotation.
 
+print STDERR "outputting to $scan_output_file\n";
+
 my $blast_data='';
 my $t1 = time();
 
