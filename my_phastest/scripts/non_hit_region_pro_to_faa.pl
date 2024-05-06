@@ -52,8 +52,10 @@ if ($anno_flag == 0 && @bact == 0) {
 my ($gi, $flag);
 my $input 	= Bio::SeqIO->new(-file   => "$ARGV[0]",
 							"-format" => "fasta");
-my $output 	= Bio::SeqIO->new(-file   => "> $ARGV[2]",
+my $output 	= Bio::SeqIO->new(-file   => ">$ARGV[2]",
 							"-format" => "fasta");
+
+print STDERR "outputting hits in " . $ARGV[2] . "\n";
 
 if ($anno_flag == 1) {
 	while (my $seq = $input->next_seq) {
@@ -75,11 +77,11 @@ else {
 	while (my $seq = $input->next_seq) {
 		$flag = 1;
 		$gi = $1 if $seq->id =~ /^gi\|(\d+)\|/;	# Local GI number from .faa file.
-		print STDERR "curr gi=$gi\n";
+		# print STDERR "curr gi=$gi\n";
 		foreach my $hit (@bact) {
 			# print STDERR "hit=$hit\n";
 			if ($gi eq $hit) {
-				print STDERR "##### hit=$hit == $gi ####\n";
+				# print STDERR "##### hit=$hit == $gi ####\n";
 				$flag = 1;		# Local GI found within the prophage region, add to non_hit_pro_region.
 				last;
 			}
@@ -88,7 +90,7 @@ else {
 			}
 		}
 		if ($flag) {
-			print STDERR "outputting hit in fasta\n";
+			# print STDERR "outputting hit in fasta\n";
 			$output->write_seq($seq);
 		}
 	}
