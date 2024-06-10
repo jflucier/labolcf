@@ -205,22 +205,14 @@ perl $scripts_dir/make_region_DNA.pl $jobs_dir $job_id
 
 cd ${jobs_dir}/${job_id}
 rm -rf \
-${NC}_dir \
-extract_RNA_result.tmp \
-extract_RNA_result.txt.tmp \
-ncbi.out \
-tmRNA_aragorn.out \
-tRNAscan* \
+${NC}_dir tmp \
+extract_RNA_result.tmp extract_RNA_result.txt.tmp \
+ncbi.out rRNA_barrnap.out RNA_output.out tmRNA_aragorn.out \
 true_defective_prophage.txt \
-$job_id.faa \
-$job_id.faa.non_hit_pro_region \
+$job_id.faa $job_id.faa.non_hit_pro_region \
 ${NC}_phmedio.txt_bk \
-tmp \
 $job_id.predict \
-$job_id.ptt \
-$job_id.fna.fai \
-ncbi.out \
-rRNA_barrnap.out
+$job_id.ptt $job_id.fna.fai $job_id.fna ${job_id}_original.fna $job_id.gff
 
 
 #ls *predict
