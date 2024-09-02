@@ -9,14 +9,18 @@ def filtre_fs(rep, out):
     filtered_res = pd.DataFrame()
     for ass, rows in pd_fs_grouped:
         print(f"{ass}")
-        rows.sort_values(by=['qcov','tcov'], ascending=False, inplace=True)
+        rows.sort_values(by=['qcov','tcov','fident'], ascending=False, inplace=True)
         best_qcov = 0
+        best_fident = 0
         for index, row in rows.iterrows():
             curr_qcov = row["qcov"]
+            curr_fident = row["fident"]
             if curr_qcov >= best_qcov :
-                tmp_df = pd.DataFrame([row])
-                filtered_res = pd.concat([filtered_res, tmp_df])
-                best_qcov = curr_qcov
+                if curr_fident >= best_fident:
+                    tmp_df = pd.DataFrame([row])
+                    filtered_res = pd.concat([filtered_res, tmp_df])
+                    best_qcov = curr_qcov
+                    best_fident = curr_fident
             else:
                 break
     filtered_res.to_csv(
