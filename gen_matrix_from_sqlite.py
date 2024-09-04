@@ -21,7 +21,7 @@ def gen_matrix(sqlitedb, out):
     con = sqlite3.connect(sqlitedb)
 
     # Load the data into a DataFrame
-    rbps = pd.read_sql_query("select distinct qseqid from RBP_list_AA_2024_blastout_blastp_qcov95_ident90", con)
+    rbps = pd.read_sql_query("select distinct qseqid from RBP_list_AA_2024_blastout_blastp_qcov95_besthit", con)
     slpas = pd.read_sql_query("select distinct slpa from Slpa_blast_qcov90_ident60", con)
 
     matrix = pd.DataFrame(0, index=rbps['qseqid'], columns=slpas['slpa'])
@@ -31,7 +31,7 @@ def gen_matrix(sqlitedb, out):
             c = pd.read_sql_query(f"""
             select
               count(distinct b.assembly) c
-            from RBP_list_AA_2024_blastout_blastp_qcov95_ident90 r
+            from RBP_list_AA_2024_blastout_blastp_qcov95_besthit r
             JOIN Slpa_blast_qcov90_ident60 b on r.assembly=b.assembly
             where r.qseqid = '{rbp}' and b.slpa = '{slpa}'
             """, con)
