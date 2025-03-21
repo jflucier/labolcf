@@ -1,3 +1,5 @@
+import argparse
+
 from Bio import Phylo
 from Bio.Phylo.TreeConstruction import DistanceTreeConstructor, DistanceMatrix
 import pandas as pd
@@ -51,8 +53,11 @@ def create_tree_from_mash_dist(mash_dist_file, output_newick_file):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-# Example usage:
-mash_dist_file = "/storage/Documents/service/externe/lcfortier/20250226_abiF_genomic_context/abiF_genomad_overlap.acc.distances.txt"  # Replace with your Mash dist output file
-output_newick_file = "/storage/Documents/service/externe/lcfortier/20250226_abiF_genomic_context/abiF_genomad_overlap.acc.distances.nwk" # Replace with your desired output path
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Create a phylogenetic tree from Mash dist output.")
+    parser.add_argument("--in", dest="mash_dist_file", required=True, help="Path to the Mash dist output file.")
+    parser.add_argument("--out", dest="output_newick_file", required=True, help="Path to save the Newick tree file.")
 
-create_tree_from_mash_dist(mash_dist_file, output_newick_file)
+    args = parser.parse_args()
+
+    create_tree_from_mash_dist(args.mash_dist_file, args.output_newick_file)
