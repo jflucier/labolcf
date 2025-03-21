@@ -3,8 +3,11 @@ import argparse
 from Bio import Phylo
 from Bio.Phylo.TreeConstruction import DistanceTreeConstructor, DistanceMatrix
 import pandas as pd
+from ete3 import Tree, TreeStyle
+from matplotlib import pyplot as plt
 
-def create_tree_from_mash_dist(mash_dist_file, output_newick_file):
+
+def create_tree_from_mash_dist(mash_dist_file, output_newick_file,output_png_file):
     """
     Creates a phylogenetic tree from Mash dist output.
 
@@ -46,6 +49,12 @@ def create_tree_from_mash_dist(mash_dist_file, output_newick_file):
         # Save the tree to a Newick file
         Phylo.write(tree, output_newick_file, "newick")
 
+        fig = plt.figure(figsize=(10, 20), dpi=100)
+        axes = fig.add_subplot(1, 1, 1)
+        Phylo.draw(tree, axes=axes, do_show=False)
+        plt.show()
+        plt.savefig(output_png_file)
+
         print(f"Phylogenetic tree saved to: {output_newick_file}")
 
     except FileNotFoundError:
@@ -53,11 +62,44 @@ def create_tree_from_mash_dist(mash_dist_file, output_newick_file):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+# def plot_newick_ete3(newick_file, output_image_file):
+#     """
+#     Plots a Newick tree using ete3.
+#
+#     Args:
+#         newick_file (str): Path to the Newick tree file.
+#         output_image_file (str): Path to save the image (e.g., PNG, SVG).
+#     """
+#
+#     try:
+#         t = Tree(newick_file)
+#         ts = TreeStyle()
+#         ts.show_leaf_name = True  # Show leaf names
+#         ts.show_branch_length = True # show branch length
+#
+#         # Customize the tree style (optional)
+#         ts.branch_vertical_margin = 10
+#         ts.scale = 100
+#
+#         t.render(output_image_file, tree_style=ts)
+#         print(f"Tree plot saved to: {output_image_file}")
+#
+#     except FileNotFoundError:
+#         print(f"Error: File not found: {newick_file}")
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create a phylogenetic tree from Mash dist output.")
     parser.add_argument("--in", dest="mash_dist_file", required=True, help="Path to the Mash dist output file.")
     parser.add_argument("--out", dest="output_newick_file", required=True, help="Path to save the Newick tree file.")
+    parser.add_argument("--png", dest="output_png_file", required=True, help="Path to save the tree PNG file.")
 
     args = parser.parse_args()
 
-    create_tree_from_mash_dist(args.mash_dist_file, args.output_newick_file)
+    create_tree_from_mash_dist(
+        args.mash_dist_file,
+        args.output_newick_file,
+        args.output_png_file
+    )
+
