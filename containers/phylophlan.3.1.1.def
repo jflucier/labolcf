@@ -31,12 +31,7 @@ From: ubuntu:22.04
 
 
     pip3 install --upgrade pip
-    pip3 install numpy
-    pip3 install biopython
-    pip3 install dendropy
-    pip3 install pandas
-    pip3 install matplotlib
-    pip3 install requests
+#    pip3 install numpy biopython dendropy pandas matplotlib requests
     cd /
     wget -O phylophlan.v3.1.1.tar.gz https://github.com/biobakery/phylophlan/archive/refs/tags/3.1.1.tar.gz
     tar -xvzf phylophlan.v3.1.1.tar.gz
