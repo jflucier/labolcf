@@ -5,7 +5,7 @@ BootStrap: docker
 From: ubuntu:22.04
 
 %environment
-
+    export PATH=/trimal-1.5.0/source:$PATH
 %post
     apt-get update && apt-get -y upgrade
 
@@ -28,4 +28,11 @@ From: ubuntu:22.04
     tar -xvzf phylophlan.v3.1.1.tar.gz
     cd /phylophlan-3.1.1
     python3 setup.py install
+
+    cd /
+    wget -O trimal_v1.5.0.tar.gz https://github.com/inab/trimal/archive/refs/tags/v1.5.0.tar.gz
+    tar -xvzf trimal_v1.5.0.tar.gz
+    cd trimal-1.5.0/source/
+    make -j 4
+
 
